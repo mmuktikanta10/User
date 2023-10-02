@@ -26,10 +26,9 @@ public class UserController {
         return ResponseEntity.ok(userResponse.get());
     }
 
-    @PatchMapping(value = "/{email}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserResponseModel> updateUser( @PathVariable("email") String email,@RequestBody @Valid  UserUpdateRequest request) {
-        userService.updateUser(email,request);
-        return null;
+    @PatchMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<UserResponseModel> updateUser( @PathVariable("id") int id,@RequestBody @Valid  UserUpdateRequest request) {
+        return ResponseEntity.ok( userService.updateUser(id,request).get());
     }
 
     @GetMapping(value = "/{email}",  produces = "application/json")

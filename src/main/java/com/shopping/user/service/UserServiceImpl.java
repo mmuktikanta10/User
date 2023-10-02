@@ -1,26 +1,27 @@
 package com.shopping.user.service;
 
+import com.shopping.user.dao.UserDao;
 import com.shopping.user.entity.UserEntity;
 import com.shopping.user.exception.UserNotFoundException;
 import com.shopping.user.model.request.UserRequestModel;
 import com.shopping.user.model.request.UserUpdateRequest;
 import com.shopping.user.model.response.UserResponseModel;
 import com.shopping.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final UserDao userDao;
 
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
-        this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
-    }
 
     @Override
     public Optional<UserResponseModel> registerUser(UserRequestModel request) {
@@ -39,10 +40,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserResponseModel> updateUser(String email, UserUpdateRequest request) {
-        if (userRepository.existsByEmail(email)){
-           // userRepository.
+    public Optional<UserResponseModel> updateUser(int id, UserUpdateRequest request) {
+        if (!userRepository.existsById(id)){
+            throw new UserNotFoundException("");
         }
-        return Optional.empty();
+        return Optional.of(modelMapper.map(userDao.updateUserData(id,request),UserResponseModel.class));
     }
 }

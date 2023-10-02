@@ -12,5 +12,5 @@ public interface UserService {
     Optional<UserResponseModel> registerUser(UserRequestModel request);
     Optional<UserResponseModel> searchUser(String email);
 
-    Optional<UserResponseModel> updateUser(String email, UserUpdateRequest request);
+    Optional<UserResponseModel> updateUser(int id, UserUpdateRequest request);
 }

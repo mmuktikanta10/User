@@ -2,13 +2,15 @@ package com.shopping.user.model.response;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Builder
+@NoArgsConstructor
+//@Builder
 public class UserResponseModel {
     @NotNull
     @Length(min = 5, max = 100)
